@@ -82,3 +82,44 @@ VALUES
 (5, 4, 1),
 (5, 2, 2);
 ```
+### Write SQL Queries
+##### Query 1
+```
+SELECT products.product_name, stock_quantity
+FROM products
+```
+##### Query 2
+```
+SELECT products.product_name, order_items.quantity
+FROM order_items
+JOIN products ON order_items.product_id = products.id
+WHERE order_items.order_id = 1;
+```
+##### Query 3
+```
+SELECT orders.id, order_items.product_id, order_items.quantity
+FROM orders
+JOIN order_items ON orders.id = order_items.order_id
+WHERE orders.customer_id = 1;
+```
+##### Update Data
+- Order 1 has 1 laptop and 2 desktops. Below code will remove 1 laptop and 2 desktops from the stock
+```
+UPDATE products
+SET stock_quantity = stock_quantity - 1
+WHERE id = 1;
+```
+```
+UPDATE products
+SET stock_quantity = stock_quantity - 2
+WHERE id = 2;
+```
+##### Delete Data
+```
+DELETE FROM order_items
+WHERE order_id = 1;
+```
+```
+DELETE FROM orders
+WHERE id = 1;
+```

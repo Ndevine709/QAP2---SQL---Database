@@ -40,3 +40,41 @@ CREATE TABLE enrollments (
 	FOREIGN KEY (course_id) REFERENCES courses(id)
 );
 ```
+### Insert the data
+##### Students Data
+```
+INSERT INTO students (first_name, last_name, email, school_enrollment_date)
+VALUES
+	('John', 'Marston', 'marston.john@redemption.ca', '2023-08-11'),
+	('Arthur', 'Morgan', 'morgan.arthur@redemption.ca', '2022-01-12'),
+	('Jack', 'Marston', 'marston.jack@redemption.ca', '2021-04-21'),
+	('Niko', 'Bellic', 'bellic.niko@liberty.ca', '2024-01-15'),
+	('Abigail', 'Roberts', 'roberts.abigail@redemption.ca', '2022-09-20');
+```
+##### Professors Data
+```
+INSERT INTO professors (first_name, last_name, department)
+VALUES
+	('Jim', 'Halpert', 'Advanced Math'),
+	('Pam', 'Halpert', 'Art & Music'),
+	('Mike', 'Scott', 'Science'),
+	('Todd', 'Packer', 'Physical Education');
+```
+##### Courses Data
+```
+INSERT INTO courses (course_name, course_description, professor_id)
+VALUES
+	('Physics 101', 'Introduction to Physics', (SELECT id FROM professors WHERE first_name = 'Mike' AND last_name = 'Scott')),
+	('Math 201', 'Introduction to Advanced Math', (SELECT id FROM professors WHERE first_name = 'Jim' AND last_name = 'Halpert')),
+	('Art 101', 'Introduction to Painting', (SELECT id FROM professors WHERE first_name = 'Pam' AND last_name = 'Halpert'));
+```
+##### Enrollments Data
+```
+INSERT INTO enrollments (student_id, course_id, enrollment_date)
+VALUES
+	((SELECT id FROM students WHERE first_name = 'John' AND last_name = 'Marston'), (SELECT id FROM courses WHERE course_name = 'Physics 101' AND course_description = 'Introduction to Physics'), '2023-09-01'),
+	((SELECT id FROM students WHERE first_name = 'Jack' AND last_name = 'Marston'), (SELECT id FROM courses WHERE course_name = 'Physics 101' AND course_description = 'Introduction to Physics'), '2023-09-01'),
+	((SELECT id FROM students WHERE first_name = 'John' AND last_name = 'Marston'), (SELECT id FROM courses WHERE course_name = 'Art 101' AND course_description = 'Introduction to Painting'), '2024-01-01'),
+	((SELECT id FROM students WHERE first_name = 'Niko' AND last_name = 'Bellic'), (SELECT id FROM courses WHERE course_name = 'Art 101' AND course_description = 'Introduction to Painting'), '2024-01-01'),
+	((SELECT id FROM students WHERE first_name = 'Abigail' AND last_name = 'Roberts'), (SELECT id FROM courses WHERE course_name = 'Physics 101' AND course_description = 'Introduction to Physics'), '2023-09-01');
+ ```

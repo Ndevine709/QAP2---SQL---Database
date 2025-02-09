@@ -78,7 +78,7 @@ VALUES
 	((SELECT id FROM students WHERE first_name = 'Niko' AND last_name = 'Bellic'), (SELECT id FROM courses WHERE course_name = 'Art 101' AND course_description = 'Introduction to Painting'), '2024-01-01'),
 	((SELECT id FROM students WHERE first_name = 'Abigail' AND last_name = 'Roberts'), (SELECT id FROM courses WHERE course_name = 'Physics 101' AND course_description = 'Introduction to Physics'), '2023-09-01');
  ```
- ### Write SQL Queries
+### Write SQL Queries
 ##### Query 1
 ```
 SELECT first_name || ' ' || last_name AS full_names FROM students

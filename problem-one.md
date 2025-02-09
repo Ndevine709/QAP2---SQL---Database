@@ -78,3 +78,34 @@ VALUES
 	((SELECT id FROM students WHERE first_name = 'Niko' AND last_name = 'Bellic'), (SELECT id FROM courses WHERE course_name = 'Art 101' AND course_description = 'Introduction to Painting'), '2024-01-01'),
 	((SELECT id FROM students WHERE first_name = 'Abigail' AND last_name = 'Roberts'), (SELECT id FROM courses WHERE course_name = 'Physics 101' AND course_description = 'Introduction to Physics'), '2023-09-01');
  ```
+ ### Write SQL Queries
+##### Query 1
+```
+SELECT first_name || ' ' || last_name AS full_names FROM students
+JOIN enrollments ON students.id = enrollments.student_id
+JOIN courses ON enrollments.course_id = courses.id
+WHERE courses.course_name = 'Physics 101';
+```
+##### Query 2
+```
+SELECT professors.first_name || ' ' || professors.last_name AS full_names, courses.course_name
+FROM courses
+JOIN professors ON courses.professor_id = professors.id;
+```
+##### Query 3
+- I had to research SELECT DISTINCT so that the courses with students in them wouldnt show up 2-3 different times (https://www.w3schools.com/sql/sql_distinct.asp)
+```
+SELECT DISTINCT courses.course_name FROM courses 
+JOIN enrollments ON courses.id = enrollments.course_id;
+```
+##### Update Data
+```
+UPDATE students
+SET email = 'john.marston@redemption.ca'
+WHERE first_name = 'John' AND last_name = 'Marston';
+```
+##### Delete Data
+```
+DELETE FROM enrollments
+WHERE student_id = 1 AND course_id = 1;
+```
